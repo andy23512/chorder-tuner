@@ -78,6 +78,16 @@
         "staticFilePath": "dist/chorder-tuner/browser",
         "spa": true
       }
+    },
+    "deploy": {
+      "executor": "angular-cli-ghpages:deploy",
+      "options": {
+        "buildTarget": "chorder-tuner:build:production",
+        "baseHref": "/chorder-tuner/",
+        "name": "Tangent Chang",
+        "email": "andy23512@gmail.com",
+        "dir": "dist/chorder-tuner/browser"
+      }
     }
   }
 }
