@@ -1,0 +1,28 @@
+<svg class="size-full" viewBox="-18 -18 36 36">
+  <path
+    [attr.d]="cShapePath"
+    class="stroke-white stroke-3 fill-transparent"
+    stroke-linecap="round"
+  ></path>
+  @for (tickLine of tickLines; track $index) {
+  <line
+    [attr.x1]="tickLine.x1"
+    [attr.y1]="tickLine.y1"
+    [attr.x2]="tickLine.x2"
+    [attr.y2]="tickLine.y2"
+    class="stroke-white stroke-3"
+    stroke-linecap="round"
+  ></line>
+  }
+  <circle
+    [attr.r]="r2"
+    class="stroke-white stroke-3"
+    stroke-linecap="round"
+  ></circle>
+  <line
+    [attr.x2]="pointerLineEnd.x"
+    [attr.y2]="pointerLineEnd.y"
+    class="stroke-white stroke-2"
+    stroke-linecap="round"
+  ></line>
+</svg>

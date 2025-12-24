@@ -35,6 +35,9 @@
       "linter": "eslint",
       "style": "scss",
       "unitTestRunner": "vitest-angular"
+    },
+    "@nx/angular:component": {
+      "style": "none"
     }
   },
   "defaultProject": "chorder-tuner"
