@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "typeRoots": ["node_modules/@types", "src/type"]
+  },
+  "files": ["tool/minify-icon-font.ts", "src/type/fonttools.d.ts"]
+}
