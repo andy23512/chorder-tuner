@@ -1,0 +1,31 @@
+<app-toolbar-button
+  tooltip="Load layout"
+  icon="open_in_browser"
+  [menu]="loadMenu"
+></app-toolbar-button>
+<input
+  #fileInput
+  class="hidden"
+  type="file"
+  accept=".json"
+  aria-label="file input for selecting a layout file to load into this app"
+  (change)="onFileInputChange()"
+/>
+<mat-menu #loadMenu="matMenu" xPosition="after">
+  <button mat-menu-item (click)="loadFromDevice()">
+    <mat-icon>{{'developer_board' | iconGuard}}</mat-icon>
+    <span>Load from device</span>
+  </button>
+  <button mat-menu-item (click)="openFileSelectionDialog()">
+    <mat-icon>{{'draft' | iconGuard}}</mat-icon>
+    <span>Load from file</span>
+  </button>
+  <button mat-menu-item (click)="loadFromDefault('cc1')">
+    <mat-icon>{{'looks_one' | iconGuard}}</mat-icon>
+    <span>Load CC1/CC2 default layout</span>
+  </button>
+  <button mat-menu-item (click)="loadFromDefault('m4g')">
+    <mat-icon>{{'looks_4' | iconGuard}}</mat-icon>
+    <span>Load M4G default layout</span>
+  </button>
+</mat-menu>

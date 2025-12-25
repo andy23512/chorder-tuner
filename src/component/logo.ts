@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-logo',
   imports: [],
   templateUrl: './logo.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Logo {
   private readonly r1 = 16;

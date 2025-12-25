@@ -1,0 +1,20 @@
+<button
+  mat-icon-button
+  class="!size-12"
+  [class.!cursor-pointer]="!disabled()"
+  [class.!cursor-not-allowed]="disabled()"
+  type="button"
+  [disabled]="disabled()"
+  [matTooltip]="tooltip()"
+  matTooltipPosition="right"
+  (click)="onButtonClick()"
+>
+  <mat-icon class="!text-[32px] !leading-[32px] !size-8">{{ icon() }}</mat-icon>
+  @if (menu()) {
+  <div
+    class="absolute right-0 top-0"
+    #menuTrigger="matMenuTrigger"
+    [matMenuTriggerFor]="menu()"
+  ></div>
+  }
+</button>

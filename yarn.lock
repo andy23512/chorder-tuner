@@ -146,6 +146,13 @@
     "@jridgewell/gen-mapping" "^0.3.5"
     "@jridgewell/trace-mapping" "^0.3.24"
 
+"@angular-architects/ngrx-toolkit@^20.5.0":
+  version "20.5.0"
+  resolved "https://registry.yarnpkg.com/@angular-architects/ngrx-toolkit/-/ngrx-toolkit-20.5.0.tgz#d36cdc205239d9819bb1136becd2866a12123529"
+  integrity sha512-Jh/OLTq0A9PXmCBfxbWcCM/A45GZAH+CZ+MxwlHbE73grufgEKunusrmwc7Zx16uC10GfahqvxGpwokVuoMgCg==
+  dependencies:
+    tslib "^2.3.0"
+
 "@angular-devkit/architect@0.2100.4", "@angular-devkit/architect@>= 0.2100.0 < 0.2200.0":
   version "0.2100.4"
   resolved "https://registry.yarnpkg.com/@angular-devkit/architect/-/architect-0.2100.4.tgz#9fb78b90555095d7a5a1b9e281cc76a294f18f78"
@@ -2747,6 +2754,13 @@
     "@emnapi/runtime" "^1.7.1"
     "@tybys/wasm-util" "^0.10.1"
 
+"@ngrx/signals@^21.0.1":
+  version "21.0.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/signals/-/signals-21.0.1.tgz#d20a395b657f62a9c174c8d7cf240fbdce51bc75"
+  integrity sha512-krmZDhgHrnmZrxfEJ41bp/aM8Mc55k5B2N7oCLT5w4M3YbOkbnWPkP6bBWMv4XPI+2rqVgkLRW6DaWLwoESaBw==
+  dependencies:
+    tslib "^2.3.0"
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -4110,6 +4124,11 @@
   integrity sha512-MK9V6NzAS1+Ud7JV9lJLFqW85VbC9dq3LmwZCuBe4wBDgKC0Kj/jd8Xl+nSviU+Qc3+m7umHHyHg//2KSa0a0Q==
   dependencies:
     "@types/node" "*"
+
+"@types/w3c-web-serial@^1.0.8":
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/@types/w3c-web-serial/-/w3c-web-serial-1.0.8.tgz#38338a26b45ffbcc85596c3940bcafeb90200529"
+  integrity sha512-QQOT+bxQJhRGXoZDZGLs3ksLud1dMNnMiSQtBA0w8KXvLpXX4oM4TZb6J0GgJ8UbCaHo5s9/4VQT8uXy9JER2A==
 
 "@types/ws@^8.5.10":
   version "8.18.1"
