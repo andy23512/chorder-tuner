@@ -37,7 +37,8 @@
       "unitTestRunner": "vitest-angular"
     },
     "@nx/angular:component": {
-      "style": "none"
+      "style": "none",
+      "changeDetection": "OnPush"
     }
   },
   "defaultProject": "chorder-tuner"
