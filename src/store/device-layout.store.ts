@@ -13,7 +13,7 @@ export const deviceLayoutStore = signalStore(
   { providedIn: 'root' },
   withDevtools('deviceLayout'),
   withStorageSync({
-    key: 'deviceLayout',
+    key: 'chorderTunerDeviceLayout',
     parse(stateString: string) {
       return { ...INITIAL_DEVICE_LAYOUT_STATE, ...JSON.parse(stateString) };
     },

@@ -18,8 +18,8 @@ import { convertKeyboardLayoutToCharacterKeyCodeMap } from '../util/layout.util'
 
 export const KeyboardLayoutStore = signalStore(
   { providedIn: 'root' },
-  withDevtools('layoutViewerKeyboardLayout'),
-  withStorageSync('layoutViewerKeyboardLayout'),
+  withDevtools('keyboardLayout'),
+  withStorageSync('chorderTunerKeyboardLayout'),
   withState({
     selectedId: 'us',
   }),

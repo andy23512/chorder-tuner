@@ -14,7 +14,7 @@ export const GeneralSettingStore = signalStore(
   { providedIn: 'root' },
   withDevtools('generalSetting'),
   withStorageSync({
-    key: 'generalSetting',
+    key: 'chorderTunerGeneralSetting',
     parse(stateString: string) {
       return { ...INITIAL_GENERAL_SETTING, ...JSON.parse(stateString) };
     },

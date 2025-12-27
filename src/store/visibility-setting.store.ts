@@ -13,7 +13,7 @@ export const VisibilitySettingStore = signalStore(
   { providedIn: 'root' },
   withDevtools('visibilitySetting'),
   withStorageSync({
-    key: 'visibilitySetting',
+    key: 'chorderTunerVisibilitySetting',
     parse(stateString: string) {
       return { ...INITIAL_VISIBILITY_SETTING, ...JSON.parse(stateString) };
     },
