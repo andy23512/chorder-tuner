@@ -30,7 +30,8 @@
 
 html {
   height: 100%;
-  @include mat.theme((color: (primary: mat.$cyan-palette,
+  @include mat.theme((color: (theme-type: dark,
+        primary: mat.$cyan-palette,
         tertiary: mat.$orange-palette,
       ),
       typography: Roboto,
@@ -61,4 +62,9 @@ body {
 
 body {
   @apply bg-gray-900;
+}
+
+.mat-button-toggle-checked {
+  color: var(--mat-sys-background) !important;
+  background-color: var(--mat-sys-on-primary-container) !important;
 }
