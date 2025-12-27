@@ -7,7 +7,7 @@
     [style.font-size.px]="getFontSize(label)"
     [class.material-icons]="label.type === KeyLabelType.Icon"
     [class.font-logos]="label.type === KeyLabelType.Logo"
-    class="transition-opacity"
+    class="transition-opacity print:!fill-black"
     [class.fill-current]="label.type !== KeyLabelType.ActionCode"
     [class.fill-red-500]="label.type === KeyLabelType.ActionCode"
     [ngClass]="label.type === KeyLabelType.Logo ? label.c : null"
