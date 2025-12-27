@@ -9,7 +9,7 @@ import { Toolbar } from '../component/toolbar';
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    class: 'flex h-full',
+    class: 'flex h-full overflow-hidden',
   },
 })
 export class App {}
