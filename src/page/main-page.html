@@ -1,0 +1,277 @@
+<section class="flex flex-none items-center gap-2 bg-gray-700">
+  <mat-button-toggle-group
+    class="flex-none opacity-80"
+    [(ngModel)]="currentLayer"
+    (ngModelChange)="resetSelectedPositions()"
+    [hideSingleSelectionIndicator]="true"
+  >
+    @for (layer of layers; track $index) {
+      <mat-button-toggle
+        [value]="layer.value"
+        [tooltip]="$any(layerToggleTooltip)"
+        contentType="template"
+        placement="bottom"
+      >
+        {{ layer.name }}
+      </mat-button-toggle>
+      <ng-template #layerToggleTooltip>
+        layer.tooltip <br />
+        <kbd [innerHTML]="layer.hotkey | hotkeysShortcut: ' + '"></kbd>
+      </ng-template>
+    }
+  </mat-button-toggle-group>
+  <mat-button-toggle-group
+    class="flex-none opacity-80"
+    [multiple]="true"
+    [ngModel]="modifiersState()"
+    (ngModelChange)="onModifierStateChanged($event)"
+    [hideMultipleSelectionIndicator]="true"
+  >
+    <mat-button-toggle
+      [value]="Modifier.Shift"
+      [tooltip]="$any(shiftToggleTooltip)"
+      contentType="template"
+      placement="bottom"
+      >Shift</mat-button-toggle
+    >
+    <mat-button-toggle
+      [value]="Modifier.AltGraph"
+      [tooltip]="$any(altGraphToggleTooltip)"
+      contentType="template"
+      placement="bottom"
+    >
+      AltGr
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <ng-template #shiftToggleTooltip>
+    Toggle Shift Modifier
+    <br />
+    <kbd [innerHTML]="'alt+s' | hotkeysShortcut: ' + '"></kbd>
+  </ng-template>
+  <ng-template #altGraphToggleTooltip>
+    Toggle Alt Graph Modifier
+    <br />
+    <kbd [innerHTML]="'alt+a' | hotkeysShortcut: ' + '"></kbd>
+  </ng-template>
+  <div class="flex-[1_0_0]"></div>
+  <mat-form-field class="w-96 flex-[0_1_auto]" [subscriptSizing]="'dynamic'">
+    <mat-label>OS Keyboard Layout</mat-label>
+    <mat-select
+      class="!font-bold !text-cyan-200"
+      [value]="selectedKeyboardLayoutId()"
+      (valueChange)="setSelectedKeyboardLayoutId($event)"
+    >
+      <mat-option>
+        <ngx-mat-select-search
+          [ngModel]="keyboardLayoutSearchQuery()"
+          (ngModelChange)="keyboardLayoutSearchQuery.set($event)"
+          [placeholderLabel]="'Find layout...'"
+          [noEntriesFoundLabel]="'No matching layout was found'"
+        ></ngx-mat-select-search>
+      </mat-option>
+      @for (
+        keyboardLayout of filteredKeyboardLayouts();
+        track keyboardLayout.id
+      ) {
+        <mat-option [value]="keyboardLayout.id">{{
+          keyboardLayout.name
+        }}</mat-option>
+      }
+    </mat-select>
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="onResetButtonClick($event)"
+      [disabled]="selectedKeyboardLayoutId() === 'us'"
+    >
+      <mat-icon>{{ 'replay' | iconGuard }}</mat-icon>
+    </button>
+  </mat-form-field>
+  <button
+    mat-icon-button
+    (click)="toggleSearchMenu()"
+    [color]="searchMenuIsOpen() ? 'primary' : null"
+    [matTooltip]="'Search for Key'"
+  >
+    <mat-icon>{{ 'search' | iconGuard }}</mat-icon>
+  </button>
+  <button
+    mat-icon-button
+    ngxPrint
+    [printTitle]="'Chorder Tuner - Layout'"
+    printSectionId="print-section"
+    [useExistingCss]="true"
+    [matTooltip]="'Print the Layout'"
+  >
+    <mat-icon>{{ 'print' | iconGuard }}</mat-icon>
+  </button>
+</section>
+@if (keyLabelMap(); as keyLabelMap) {
+  <mat-sidenav-container class="flex-1">
+    <mat-sidenav
+      [(opened)]="searchMenuIsOpen"
+      mode="over"
+      position="end"
+      data-style-dense
+    >
+      <mat-form-field
+        class="w-96 [&_.mat-mdc-form-field-subscript-wrapper]:hidden"
+      >
+        <input
+          [ngModel]="keySearchQuery()"
+          (ngModelChange)="keySearchQuery.set($event)"
+          matInput
+          type="search"
+          [placeholder]="'Find key...'"
+          [attr.aria-label]="'search box for key'"
+        />
+        @if (!keySearchQuery()) {
+          <button
+            mat-icon-button
+            matSuffix
+            [attr.aria-label]="'clear search query'"
+          >
+            <mat-icon>{{ 'search' | iconGuard }}</mat-icon>
+          </button>
+        }
+      </mat-form-field>
+      <mat-action-list>
+        @if (keySearchQuery()) {
+          @for (key of filteredKeyList(); track $index) {
+            <button mat-list-item (click)="onKeyInSearchResultClick(key)">
+              {{ key.keyName }}
+            </button>
+          } @empty {
+            <button mat-list-item disabled>No matching key was found.</button>
+          }
+        }
+      </mat-action-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <section class="relative px-5 pb-5">
+        <app-layout
+          class="block h-full overflow-hidden"
+          [showThumb3Switch]="visibilitySettingStore.layoutThumb3Switch()"
+          [keyLabelMap]="keyLabelMap"
+          [highlightKeyCombination]="{
+            positionCodes: highlightPositionCodes(),
+            score: 0,
+            characterKeyPositionCode: 0,
+            layer: currentLayer(),
+            shiftKey: shiftKey(),
+            altGraphKey: altGraphKey(),
+          }"
+          [secondaryHighlightPositions]="selectedPositions()"
+        ></app-layout>
+        <div
+          class="absolute left-1/2 top-0 flex -translate-x-1/2 items-center justify-center text-gray-100"
+        >
+          @if (holdKeys().length) {
+            (Hold
+            @for (key of holdKeys(); track $index) {
+              @if ($index > 0) {
+                @if ($index === holdKeys().length - 1) {
+                  and
+                } @else {
+                  ,
+                }
+              }
+              @switch (key) {
+                @case ('num-shift') {
+                  <mat-icon class="mx-1 text-cyan-500">{{
+                    'counter_2' | iconGuard
+                  }}</mat-icon>
+                }
+                @case ('fn') {
+                  <mat-icon class="mx-1 text-cyan-500">{{
+                    'counter_3' | iconGuard
+                  }}</mat-icon>
+                }
+                @case ('shift') {
+                  <mat-icon class="text-cyan-500">{{
+                    'shift' | iconGuard
+                  }}</mat-icon>
+                }
+                @case ('alt-gr') {
+                  <span class="px-1 text-cyan-500">AltGr</span>
+                }
+              }
+            }
+            to access this layer)
+          }
+        </div>
+      </section>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+  <div id="print-section" class="hidden">
+    @for (altGraphKey of [false, true]; track $index) {
+      @for (layer of layers; track $index) {
+        @for (shiftKey of [false, true]; track $index) {
+          <section class="relative h-1/2">
+            <app-layout
+              class="block h-full overflow-hidden"
+              [showThumb3Switch]="visibilitySettingStore.layoutThumb3Switch()"
+              [keyLabelMap]="keyLabelMap"
+              [highlightKeyCombination]="{
+                positionCodes: getHighlightPositionCodes(
+                  layer.value,
+                  shiftKey,
+                  altGraphKey
+                ),
+                score: 0,
+                characterKeyPositionCode: 0,
+                layer: layer.value,
+                shiftKey: shiftKey,
+                altGraphKey: altGraphKey,
+              }"
+            ></app-layout>
+            <div
+              class="absolute top-20 flex w-full items-center justify-center text-black"
+            >
+              @if (
+                getHoldKeys(layer.value, shiftKey, altGraphKey);
+                as holdKeys
+              ) {
+                @if (holdKeys.length) {
+                  (Hold
+                  @for (key of holdKeys; track $index) {
+                    @if ($index > 0) {
+                      @if ($index === holdKeys.length - 1) {
+                        and
+                      } @else {
+                        ,
+                      }
+                    }
+                    @switch (key) {
+                      @case ('num-shift') {
+                        <mat-icon class="mx-1 text-cyan-500 print:text-black">{{
+                          'counter_2' | iconGuard
+                        }}</mat-icon>
+                      }
+                      @case ('fn') {
+                        <mat-icon class="mx-1 text-cyan-500 print:text-black">{{
+                          'counter_3' | iconGuard
+                        }}</mat-icon>
+                      }
+                      @case ('shift') {
+                        <mat-icon class="text-cyan-500 print:text-black">{{
+                          'shift' | iconGuard
+                        }}</mat-icon>
+                      }
+                      @case ('alt-gr') {
+                        <span class="px-1 text-cyan-500 print:text-black"
+                          >AltGr</span
+                        >
+                      }
+                    }
+                  }
+                  to access this layer)
+                }
+              }
+            </div>
+          </section>
+        }
+      }
+    }
+  </div>
+}

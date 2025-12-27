@@ -3,25 +3,25 @@ import {
   withStorageSync,
 } from '@angular-architects/ngrx-toolkit';
 import { patchState, signalStore, withMethods, withState } from '@ngrx/signals';
-import { Setting } from '../model/setting.model';
+import { GeneralSetting } from '../model/general-setting.model';
 
-const INITIAL_SETTING: Setting = {
+const INITIAL_GENERAL_SETTING: GeneralSetting = {
   showWelcomeDialogWhenStart: true,
   autoConnectToDevice: false,
 };
 
-export const SettingStore = signalStore(
+export const GeneralSettingStore = signalStore(
   { providedIn: 'root' },
-  withDevtools('setting'),
+  withDevtools('generalSetting'),
   withStorageSync({
-    key: 'setting',
+    key: 'generalSetting',
     parse(stateString: string) {
-      return { ...INITIAL_SETTING, ...JSON.parse(stateString) };
+      return { ...INITIAL_GENERAL_SETTING, ...JSON.parse(stateString) };
     },
   }),
-  withState(INITIAL_SETTING),
+  withState(INITIAL_GENERAL_SETTING),
   withMethods((store) => ({
-    set<K extends keyof Setting>(key: K, value: Setting[K]) {
+    set<K extends keyof GeneralSetting>(key: K, value: GeneralSetting[K]) {
       patchState(store, (state) => ({
         ...state,
         [key]: value,

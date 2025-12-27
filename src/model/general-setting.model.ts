@@ -1,4 +1,4 @@
-export interface Setting {
+export interface GeneralSetting {
   showWelcomeDialogWhenStart: boolean;
   autoConnectToDevice: boolean;
 }

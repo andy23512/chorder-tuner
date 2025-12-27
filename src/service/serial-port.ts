@@ -1,15 +1,15 @@
 import { inject, Injectable } from '@angular/core';
 import { CHARACHORDER_DEVICE_PORTS } from '../data/charachorder-device-ports.const';
-import { SettingStore } from '../store/setting.store';
+import { GeneralSettingStore } from '../store/general-setting.store';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SerialPortService {
-  private readonly settingStore = inject(SettingStore);
+  private readonly generalSettingStore = inject(GeneralSettingStore);
 
   public async getPort(): Promise<SerialPort> {
-    if (this.settingStore.autoConnectToDevice()) {
+    if (this.generalSettingStore.autoConnectToDevice()) {
       const viablePorts = await this.getViablePorts();
       if (viablePorts.length === 1) {
         return viablePorts[0];

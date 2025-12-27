@@ -1,0 +1,43 @@
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+} from '@angular/core';
+import {
+  HighlightKeyCombination,
+  KeyLabel,
+} from '../model/device-layout.model';
+import { DirectionMap } from '../model/layout.model';
+import { KeyLabelComponent } from './key-label.component';
+import { SwitchSector } from './switch-sector';
+
+@Component({
+  selector: '[appSwitch]',
+  imports: [SwitchSector, KeyLabelComponent],
+  templateUrl: './switch.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+})
+export class Switch {
+  readonly fontSize = input<number>(90);
+  readonly center = input.required<{ x: number; y: number }>();
+  readonly rotationDirection = input.required<'cw' | 'ccw'>();
+  readonly rotation = input<number>(0);
+  readonly highlightOpacity = input<number>(0.5);
+  readonly strokeWidth = input<number>(1);
+  sectors: { direction: 'n' | 'e' | 's' | 'w'; degree: number }[] = [
+    { direction: 'n', degree: 270 },
+    { direction: 'e', degree: 0 },
+    { direction: 's', degree: 90 },
+    { direction: 'w', degree: 180 },
+  ];
+  readonly positionCodeMap = input.required<DirectionMap<number>>();
+  readonly keyLabelMap = input<Record<number, KeyLabel[]>>({});
+  readonly highlightKeyCombination = input<HighlightKeyCombination | null>(
+    null,
+  );
+  readonly secondaryHighlightPositions = input<number[]>([]);
+  readonly r = computed(() => {
+    return (this.rotationDirection() === 'cw' ? 1 : -1) * this.rotation();
+  });
+}

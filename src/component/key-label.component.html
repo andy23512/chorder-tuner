@@ -1,0 +1,25 @@
+@for (label of labels(); track $index) {
+  <svg:text
+    [attr.x]="x()"
+    [attr.y]="y()"
+    dominant-baseline="central"
+    text-anchor="middle"
+    [style.font-size.px]="getFontSize(label)"
+    [class.material-icons]="label.type === KeyLabelType.Icon"
+    [class.font-logos]="label.type === KeyLabelType.Logo"
+    class="transition-opacity"
+    [class.fill-current]="label.type !== KeyLabelType.ActionCode"
+    [class.fill-red-500]="label.type === KeyLabelType.ActionCode"
+    [ngClass]="label.type === KeyLabelType.Logo ? label.c : null"
+    [attr.opacity]="isLabelActive(label) ? 1 : 0"
+    [matTooltip]="label.title"
+    [matTooltipDisabled]="!isLabelActive(label)"
+    [class.pointer-events-none]="!isLabelActive(label)"
+  >
+    @if (label.type === KeyLabelType.ActionCode) {
+      ({{ label.c }})
+    } @else {
+      {{ label.c }}
+    }
+  </svg:text>
+}

@@ -1,11 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { Toolbar } from '../component/toolbar';
 
 @Component({
-  imports: [Toolbar],
+  imports: [Toolbar, RouterOutlet],
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    class: 'flex h-full',
+  },
 })
 export class App {}

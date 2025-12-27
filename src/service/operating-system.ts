@@ -1,0 +1,16 @@
+import { Injectable } from '@angular/core';
+import { UAParser } from 'ua-parser-js';
+import { OperatingSystemName } from '../model/operating-system.model';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class OperatingSystem {
+  private readonly uaParser = new UAParser();
+
+  constructor() {}
+
+  public getOS(): OperatingSystemName | undefined {
+    return this.uaParser.getOS().name as OperatingSystemName | undefined;
+  }
+}
