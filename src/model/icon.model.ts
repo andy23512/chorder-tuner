@@ -1,3 +1,5 @@
+import { KeyLabelIcon } from 'tangent-cc-lib';
+
 export type Icon =
   | 'apps'
   | 'arrow_circle_down'
@@ -6,15 +8,17 @@ export type Icon =
   | 'arrow_circle_up'
   | 'backspace'
   | 'block'
+  | 'copy_all'
   | 'counter_1'
   | 'counter_2'
   | 'counter_3'
-  | 'copy_all'
+  | 'counter_4'
   | 'developer_board'
   | 'draft'
   | 'heap_snapshot_multiple'
   | 'home'
   | 'insert_text'
+  | 'join_inner'
   | 'keyboard_arrow_down'
   | 'keyboard_arrow_left'
   | 'keyboard_arrow_right'
@@ -23,6 +27,8 @@ export type Icon =
   | 'keyboard_command_key'
   | 'keyboard_return'
   | 'keyboard_tab'
+  | 'layers'
+  | 'layers_clear'
   | 'left_click'
   | 'looks_one'
   | 'looks_4'
@@ -48,3 +54,5 @@ export type Icon =
   | 'terminal'
   | 'touchpad_mouse'
   | 'window';
+
+const _assertIconType: [KeyLabelIcon] extends [Icon] ? true : false = true;

@@ -1,5 +1,5 @@
-import { DeviceLayout } from './device-layout.model';
+import { DeviceLayout } from 'tangent-cc-lib';
 
 export interface DeviceLayoutState {
-  deviceLayout: DeviceLayout | null;
+  deviceLayout: DeviceLayout['layout'] | null;
 }

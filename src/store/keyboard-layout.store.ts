@@ -10,11 +10,13 @@ import {
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { CHINESE_KEYBOARD_LAYOUTS } from '../data/chinese-keyboard-layouts.const';
-import { KEYBOARD_LAYOUTS_FROM_KBDLAYOUT } from '../data/keyboard-layouts-from-kbdlayout.const';
-import { KEYBOARD_LAYOUTS_FROM_XKEYBOARD } from '../data/keyboard-layouts-from-xkeyboard.const';
-import { KeyBoardLayout } from '../model/keyboard-layout.model';
-import { convertKeyboardLayoutToCharacterKeyCodeMap } from '../util/layout.util';
+import {
+  CHINESE_KEYBOARD_LAYOUTS,
+  KEYBOARD_LAYOUTS_FROM_KBDLAYOUT,
+  KEYBOARD_LAYOUTS_FROM_XKEYBOARD,
+  KeyboardLayout,
+  convertKeyboardLayoutToCharacterKeyCodeMap,
+} from 'tangent-cc-lib';
 
 export const KeyboardLayoutStore = signalStore(
   { providedIn: 'root' },
@@ -43,7 +45,7 @@ export const KeyboardLayoutStore = signalStore(
       const selectedId = state.selectedId();
       return state
         .entities()
-        .find((layout) => layout.id === selectedId) as KeyBoardLayout;
+        .find((layout) => layout.id === selectedId) as KeyboardLayout;
     }),
   })),
   withComputed((state) => ({

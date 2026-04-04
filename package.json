@@ -31,6 +31,7 @@
     "ramda": "^0.32.0",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.18",
+    "tangent-cc-lib": "0.0.17",
     "ua-parser-js": "^2.0.7"
   },
   "devDependencies": {

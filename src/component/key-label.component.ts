@@ -5,7 +5,7 @@ import {
   HighlightKeyCombination,
   KeyLabel,
   KeyLabelType,
-} from '../model/device-layout.model';
+} from 'tangent-cc-lib';
 
 @Component({
   selector: '[appKeyLabel]',

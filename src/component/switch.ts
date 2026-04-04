@@ -5,10 +5,10 @@ import {
   input,
 } from '@angular/core';
 import {
+  DirectionMap,
   HighlightKeyCombination,
   KeyLabel,
-} from '../model/device-layout.model';
-import { DirectionMap } from '../model/layout.model';
+} from 'tangent-cc-lib';
 import { KeyLabelComponent } from './key-label.component';
 import { SwitchSector } from './switch-sector';
 

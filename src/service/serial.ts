@@ -10,11 +10,11 @@ import {
   tap,
   toArray,
 } from 'rxjs';
+import { DeviceLayout } from 'tangent-cc-lib';
 import {
   SerialCommand,
   SerialCommandArgMap,
 } from '../data/serial-command.enum';
-import { DeviceLayout } from '../model/device-layout.model';
 import { SerialLogItemType } from '../model/serial-log.model';
 import { SerialLogStore } from '../store/serial-log.store';
 import { SerialPortService } from './serial-port';
@@ -83,24 +83,25 @@ export class Serial {
     }
   }
 
-  public loadLayout(): Observable<DeviceLayout> {
+  public loadLayout(): Observable<DeviceLayout['layout']> {
     return from([1, 2, 3]).pipe(
-      concatMap((layerIndex) =>
-        from(Array.from({ length: 90 }, (_, i) => i)).pipe(
-          concatMap((keyIndex) =>
-            from(
-              this.send(
-                SerialCommand.GetKeyMap,
-                `A${layerIndex}`,
-                keyIndex.toString(),
-              ),
-            ).pipe(map((data) => Number.parseInt(data, 10))),
-          ),
-          toArray(),
-        ),
+      concatMap(
+        (layerIndex) =>
+          from(Array.from({ length: 90 }, (_, i) => i)).pipe(
+            concatMap((keyIndex) =>
+              from(
+                this.send(
+                  SerialCommand.GetKeyMap,
+                  `A${layerIndex}`,
+                  keyIndex.toString(),
+                ),
+              ).pipe(map((data) => Number.parseInt(data, 10))),
+            ),
+            toArray(),
+          ) as Observable<DeviceLayout['layout'][0]>,
       ),
       toArray(),
-    ) as Observable<DeviceLayout>;
+    ) as Observable<DeviceLayout['layout']>;
   }
 
   public batchSend(

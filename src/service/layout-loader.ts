@@ -1,10 +1,10 @@
 import { inject, Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import {
-  CC1_DEFAULT_DEVICE_LAYOUT,
+  DEFAULT_DEVICE_LAYOUT as CC1_DEFAULT_DEVICE_LAYOUT,
+  DeviceLayout,
   M4G_DEFAULT_DEVICE_LAYOUT,
-} from '../data/default-device-layouts.const';
-import { DeviceLayout } from '../model/device-layout.model';
+} from 'tangent-cc-lib';
 import { deviceLayoutStore } from '../store/device-layout.store';
 import { Serial } from './serial';
 
@@ -48,15 +48,15 @@ export class LayoutLoader {
 
   public loadFromDefault(device: 'cc1' | 'm4g') {
     if (device === 'cc1') {
-      this.saveLayoutToStore(CC1_DEFAULT_DEVICE_LAYOUT);
+      this.saveLayoutToStore(CC1_DEFAULT_DEVICE_LAYOUT.layout);
     } else if (device === 'm4g') {
-      this.saveLayoutToStore(M4G_DEFAULT_DEVICE_LAYOUT);
+      this.saveLayoutToStore(M4G_DEFAULT_DEVICE_LAYOUT.layout);
     } else {
       throw new Error(`Unsupported device: ${device}`);
     }
   }
 
-  private saveLayoutToStore(layout: DeviceLayout): void {
+  private saveLayoutToStore(layout: DeviceLayout['layout']): void {
     this.deviceLayoutStore.set('deviceLayout', layout);
   }
 }

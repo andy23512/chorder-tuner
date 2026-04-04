@@ -4,12 +4,13 @@ import {
   computed,
   input,
 } from '@angular/core';
-import { POSITION_CODE_LAYOUT } from '../data/layouts';
 import {
+  FingerMap,
+  HandMap,
   HighlightKeyCombination,
   KeyLabel,
-} from '../model/device-layout.model';
-import { FingerMap, HandMap } from '../model/layout.model';
+  POSITION_CODE_LAYOUT,
+} from 'tangent-cc-lib';
 import { Switch } from './switch';
 const cellSize = 350;
 const gap = 35;

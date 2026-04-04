@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
+import { OperatingSystemName } from 'tangent-cc-lib';
 import { UAParser } from 'ua-parser-js';
-import { OperatingSystemName } from '../model/operating-system.model';
 
 @Injectable({
   providedIn: 'root',

@@ -22,38 +22,33 @@ import * as fuzzy from 'fuzzy';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgxPrintModule } from 'ngx-print';
 import { range } from 'ramda';
-import { Layout } from '../component/layout';
-import { ACTIONS, NO_ACTION_ACTION_CODES } from '../data/actions.const';
-import { CHARACTER_NAME_MAP } from '../data/character-name-map';
 import {
-  NON_KEY_ACTION_NAME_2_RAW_KEY_LABEL_MAP,
-  NON_WSK_CODE_2_RAW_KEY_LABEL_MAP,
-  OS_2_META_KEY_LABEL_MAP,
-} from '../data/key-labels.const';
-import {
-  NON_KEY_ACTION_NAME_2_KEY_NAMES_MAP,
-  NON_WSK_CODE_2_KEY_NAMES_MAP,
-} from '../data/key-names';
-import { ActionType } from '../model/action.model';
-import {
+  ACTIONS,
+  ActionType,
+  CHARACTER_NAME_MAP,
   DeviceLayout,
+  getModifierKeyPositionCodeMap,
   KeyLabel,
   KeyLabelType,
   Layer,
-} from '../model/device-layout.model';
+  NO_ACTION_ACTION_CODES,
+  NON_KEY_ACTION_NAME_2_KEY_NAMES_MAP,
+  NON_KEY_ACTION_NAME_2_RAW_KEY_LABEL_MAP,
+  NON_WSK_CODE_2_KEY_NAMES_MAP,
+  NON_WSK_CODE_2_RAW_KEY_LABEL_MAP,
+  OS_2_META_KEY_LABEL_MAP,
+} from 'tangent-cc-lib';
+import { Layout } from '../component/layout';
 import { Modifier } from '../model/modifier.enum';
 import { IconGuardPipe } from '../pipe/icon-guard.pipe';
 import { OperatingSystem } from '../service/operating-system';
 import { deviceLayoutStore } from '../store/device-layout.store';
 import { KeyboardLayoutStore } from '../store/keyboard-layout.store';
 import { VisibilitySettingStore } from '../store/visibility-setting.store';
-import {
-  getHoldKeys,
-  getModifierKeyPositionCodeMap,
-} from '../util/layout.util';
+import { getHoldKeys } from '../util/layout.util';
 
 function getHighlightPositionCodes(
-  deviceLayout: DeviceLayout | null,
+  deviceLayout: DeviceLayout['layout'] | null,
   layer: Layer,
   shiftKey: boolean,
   altGraphKey: boolean,
@@ -62,8 +57,11 @@ function getHighlightPositionCodes(
     return [];
   }
   const highlightPositionCodes: number[] = [];
-  const modifierKeyPositionCodeMap =
-    getModifierKeyPositionCodeMap(deviceLayout);
+  const modifierKeyPositionCodeMap = getModifierKeyPositionCodeMap({
+    id: '',
+    name: '',
+    layout: deviceLayout,
+  });
   switch (layer) {
     case Layer.Secondary:
       highlightPositionCodes.push(...modifierKeyPositionCodeMap.numShift);
@@ -214,16 +212,22 @@ export class MainPage {
               keyLabels.push(
                 {
                   type: KeyLabelType.String,
-                  c: keyboardLayoutKey.withShift,
-                  title: 'Character: ' + keyboardLayoutKey.withShift,
+                  c: keyboardLayoutKey.withShift.value,
+                  title:
+                    (keyboardLayoutKey.withShift.type === 'dead-key'
+                      ? 'Dead Key: '
+                      : 'Character: ') + keyboardLayoutKey.withShift.value,
                   layer,
                   shiftKey: false,
                   altGraphKey: false,
                 },
                 {
                   type: KeyLabelType.String,
-                  c: keyboardLayoutKey.withShift,
-                  title: 'Character: ' + keyboardLayoutKey.withShift,
+                  c: keyboardLayoutKey.withShift.value,
+                  title:
+                    (keyboardLayoutKey.withShift.type === 'dead-key'
+                      ? 'Dead Key: '
+                      : 'Character: ') + keyboardLayoutKey.withShift.value,
                   layer,
                   shiftKey: true,
                   altGraphKey: false,
@@ -234,16 +238,24 @@ export class MainPage {
               keyLabels.push(
                 {
                   type: KeyLabelType.String,
-                  c: keyboardLayoutKey.withShiftAltGraph,
-                  title: `Character: ${keyboardLayoutKey.withShiftAltGraph}`,
+                  c: keyboardLayoutKey.withShiftAltGraph.value,
+                  title:
+                    (keyboardLayoutKey.withShiftAltGraph.type === 'dead-key'
+                      ? 'Dead Key: '
+                      : 'Character: ') +
+                    keyboardLayoutKey.withShiftAltGraph.value,
                   layer,
                   shiftKey: false,
                   altGraphKey: true,
                 },
                 {
                   type: KeyLabelType.String,
-                  c: keyboardLayoutKey.withShiftAltGraph,
-                  title: `Character: ${keyboardLayoutKey.withShiftAltGraph}`,
+                  c: keyboardLayoutKey.withShiftAltGraph.value,
+                  title:
+                    (keyboardLayoutKey.withShiftAltGraph.type === 'dead-key'
+                      ? 'Dead Key: '
+                      : 'Character: ') +
+                    keyboardLayoutKey.withShiftAltGraph.value,
                   layer,
                   shiftKey: true,
                   altGraphKey: true,
@@ -254,8 +266,11 @@ export class MainPage {
             if (keyboardLayoutKey?.unmodified) {
               keyLabels.push({
                 type: KeyLabelType.String,
-                c: keyboardLayoutKey.unmodified,
-                title: `Character: ${keyboardLayoutKey.unmodified}`,
+                c: keyboardLayoutKey.unmodified.value,
+                title:
+                  (keyboardLayoutKey.unmodified.type === 'dead-key'
+                    ? 'Dead Key: '
+                    : 'Character: ') + keyboardLayoutKey.unmodified.value,
                 layer,
                 shiftKey: false,
                 altGraphKey: false,
@@ -264,8 +279,11 @@ export class MainPage {
             if (keyboardLayoutKey?.withShift) {
               keyLabels.push({
                 type: KeyLabelType.String,
-                c: keyboardLayoutKey.withShift,
-                title: `Character: ${keyboardLayoutKey.withShift}`,
+                c: keyboardLayoutKey.withShift.value,
+                title:
+                  (keyboardLayoutKey.withShift.type === 'dead-key'
+                    ? 'Dead Key: '
+                    : 'Character: ') + keyboardLayoutKey.withShift.value,
                 layer,
                 shiftKey: true,
                 altGraphKey: false,
@@ -274,8 +292,11 @@ export class MainPage {
             if (keyboardLayoutKey?.withAltGraph) {
               keyLabels.push({
                 type: KeyLabelType.String,
-                c: keyboardLayoutKey.withAltGraph,
-                title: `Character: ${keyboardLayoutKey.withAltGraph}`,
+                c: keyboardLayoutKey.withAltGraph.value,
+                title:
+                  (keyboardLayoutKey.withAltGraph.type === 'dead-key'
+                    ? 'Dead Key: '
+                    : 'Character: ') + keyboardLayoutKey.withAltGraph.value,
                 layer,
                 shiftKey: false,
                 altGraphKey: true,
@@ -284,8 +305,12 @@ export class MainPage {
             if (keyboardLayoutKey?.withShiftAltGraph) {
               keyLabels.push({
                 type: KeyLabelType.String,
-                c: keyboardLayoutKey.withShiftAltGraph,
-                title: `Character: ${keyboardLayoutKey.withShiftAltGraph}`,
+                c: keyboardLayoutKey.withShiftAltGraph.value,
+                title:
+                  (keyboardLayoutKey.withShiftAltGraph.type === 'dead-key'
+                    ? 'Dead Key: '
+                    : 'Character: ') +
+                  keyboardLayoutKey.withShiftAltGraph.value,
                 layer,
                 shiftKey: true,
                 altGraphKey: true,
@@ -382,40 +407,70 @@ export class MainPage {
           if (action?.withShift) {
             if (keyboardLayoutKey?.withShift) {
               const char = keyboardLayoutKey.withShift;
-              keyNames = [char, ...(CHARACTER_NAME_MAP.get(char) ?? [])];
+              if (char.type === 'text') {
+                keyNames = [
+                  char.value,
+                  ...(CHARACTER_NAME_MAP.get(char.value) ?? []),
+                ];
+              } else if (char.type === 'dead-key') {
+                keyNames = [char.value].map((c) => `${c} (dead key)`);
+              }
             }
             if (keyboardLayoutKey?.withShiftAltGraph) {
               const char = keyboardLayoutKey.withShiftAltGraph;
-              altGraphLayerKeyNames = [
-                char,
-                ...(CHARACTER_NAME_MAP.get(char) ?? []),
-              ];
+              if (char.type === 'text') {
+                altGraphLayerKeyNames = [
+                  char.value,
+                  ...(CHARACTER_NAME_MAP.get(char.value) ?? []),
+                ];
+              } else if (char.type === 'dead-key') {
+                altGraphLayerKeyNames = [char.value + ' (dead key)'];
+              }
             }
           } else {
             if (keyboardLayoutKey?.unmodified) {
               const char = keyboardLayoutKey.unmodified;
-              keyNames = [char, ...(CHARACTER_NAME_MAP.get(char) ?? [])];
+              if (char.type === 'text') {
+                keyNames = [
+                  char.value,
+                  ...(CHARACTER_NAME_MAP.get(char.value) ?? []),
+                ];
+              } else if (char.type === 'dead-key') {
+                keyNames = [char.value].map((c) => `${c} (dead key)`);
+              }
             }
             if (keyboardLayoutKey?.withShift) {
               const char = keyboardLayoutKey.withShift;
-              shiftLayerKeyNames = [
-                char,
-                ...(CHARACTER_NAME_MAP.get(char) ?? []),
-              ];
+              if (char.type === 'text') {
+                shiftLayerKeyNames = [
+                  char.value,
+                  ...(CHARACTER_NAME_MAP.get(char.value) ?? []),
+                ];
+              } else if (char.type === 'dead-key') {
+                shiftLayerKeyNames = [char.value + ' (dead key)'];
+              }
             }
             if (keyboardLayoutKey?.withAltGraph) {
               const char = keyboardLayoutKey.withAltGraph;
-              altGraphLayerKeyNames = [
-                char,
-                ...(CHARACTER_NAME_MAP.get(char) ?? []),
-              ];
+              if (char.type === 'text') {
+                altGraphLayerKeyNames = [
+                  char.value,
+                  ...(CHARACTER_NAME_MAP.get(char.value) ?? []),
+                ];
+              } else if (char.type === 'dead-key') {
+                altGraphLayerKeyNames = [char.value + ' (dead key)'];
+              }
             }
             if (keyboardLayoutKey?.withShiftAltGraph) {
               const char = keyboardLayoutKey.withShiftAltGraph;
-              shiftAltGraphLayerKeyNames = [
-                char,
-                ...(CHARACTER_NAME_MAP.get(char) ?? []),
-              ];
+              if (char.type === 'text') {
+                shiftAltGraphLayerKeyNames = [
+                  char.value,
+                  ...(CHARACTER_NAME_MAP.get(char.value) ?? []),
+                ];
+              } else if (char.type === 'dead-key') {
+                shiftAltGraphLayerKeyNames = [char.value + ' (dead key)'];
+              }
             }
           }
         } else if (action?.type === ActionType.NonWSK && action.keyCode) {
