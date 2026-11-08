@@ -45,3 +45,9 @@ Thumbs.db
 
 __screenshots__/
 src/asset/material-symbols-rounded-latin-full-normal.min.woff2
+
+# Yarn
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
