@@ -12,6 +12,8 @@ describe('ToolbarButton', () => {
 
     fixture = TestBed.createComponent(ToolbarButton);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('tooltip', 'Tooltip');
+    fixture.componentRef.setInput('icon', 'apps');
     await fixture.whenStable();
   });
 

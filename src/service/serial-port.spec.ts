@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SerialPort } from './serial-port';
+import { SerialPortService } from './serial-port';
 
-describe('SerialPort', () => {
-  let service: SerialPort;
+describe('SerialPortService', () => {
+  let service: SerialPortService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SerialPort);
+    service = TestBed.inject(SerialPortService);
   });
 
   it('should be created', () => {
