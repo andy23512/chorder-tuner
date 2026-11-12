@@ -8,16 +8,14 @@
     @for (layer of layers; track $index) {
       <mat-button-toggle
         [value]="layer.value"
-        [tooltip]="$any(layerToggleTooltip)"
-        contentType="template"
-        placement="bottom"
+        [matTooltip]="
+          layer.tooltip + '\n' + (layer.hotkey | hotkeysShortcut: ' + ')
+        "
+        matTooltipPosition="below"
+        matTooltipClass="multiline-tooltip"
       >
         {{ layer.name }}
       </mat-button-toggle>
-      <ng-template #layerToggleTooltip>
-        layer.tooltip <br />
-        <kbd [innerHTML]="layer.hotkey | hotkeysShortcut: ' + '"></kbd>
-      </ng-template>
     }
   </mat-button-toggle-group>
   <mat-button-toggle-group
@@ -29,30 +27,24 @@
   >
     <mat-button-toggle
       [value]="Modifier.Shift"
-      [tooltip]="$any(shiftToggleTooltip)"
-      contentType="template"
-      placement="bottom"
+      [matTooltip]="
+        'Toggle Shift Modifier\n' + ('alt+s' | hotkeysShortcut: ' + ')
+      "
+      matTooltipPosition="below"
+      matTooltipClass="multiline-tooltip"
       >Shift</mat-button-toggle
     >
     <mat-button-toggle
       [value]="Modifier.AltGraph"
-      [tooltip]="$any(altGraphToggleTooltip)"
-      contentType="template"
-      placement="bottom"
+      [matTooltip]="
+        'Toggle Alt Graph Modifier\n' + ('alt+a' | hotkeysShortcut: ' + ')
+      "
+      matTooltipPosition="below"
+      matTooltipClass="multiline-tooltip"
     >
       AltGr
     </mat-button-toggle>
   </mat-button-toggle-group>
-  <ng-template #shiftToggleTooltip>
-    Toggle Shift Modifier
-    <br />
-    <kbd [innerHTML]="'alt+s' | hotkeysShortcut: ' + '"></kbd>
-  </ng-template>
-  <ng-template #altGraphToggleTooltip>
-    Toggle Alt Graph Modifier
-    <br />
-    <kbd [innerHTML]="'alt+a' | hotkeysShortcut: ' + '"></kbd>
-  </ng-template>
   <div class="flex-[1_0_0]"></div>
   <mat-form-field class="w-96 flex-[0_1_auto]" [subscriptSizing]="'dynamic'">
     <mat-label>OS Keyboard Layout</mat-label>

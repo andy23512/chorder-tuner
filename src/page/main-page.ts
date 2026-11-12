@@ -17,7 +17,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { HotkeysShortcutPipe } from '@ngneat/hotkeys';
-import { TooltipDirective } from '@webed/angular-tooltip';
 import * as fuzzy from 'fuzzy';
 import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 import { NgxPrintModule } from 'ngx-print';
@@ -84,7 +83,6 @@ function getHighlightPositionCodes(
   imports: [
     MatButtonToggleModule,
     FormsModule,
-    TooltipDirective,
     HotkeysShortcutPipe,
     MatFormFieldModule,
     MatSelectModule,

@@ -68,3 +68,7 @@ body {
   color: var(--mat-sys-background) !important;
   background-color: var(--mat-sys-on-primary-container) !important;
 }
+
+.multiline-tooltip {
+  white-space: pre-line;
+}
