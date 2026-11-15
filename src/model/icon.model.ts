@@ -8,6 +8,7 @@ export type Icon =
   | 'arrow_circle_up'
   | 'backspace'
   | 'block'
+  | 'code'
   | 'copy_all'
   | 'counter_1'
   | 'counter_2'
