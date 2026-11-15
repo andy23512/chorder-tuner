@@ -8,8 +8,6 @@ import { UAParser } from 'ua-parser-js';
 export class OperatingSystem {
   private readonly uaParser = new UAParser();
 
-  constructor() {}
-
   public getOS(): OperatingSystemName | undefined {
     return this.uaParser.getOS().name as OperatingSystemName | undefined;
   }

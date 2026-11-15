@@ -56,4 +56,6 @@ export type Icon =
   | 'touchpad_mouse'
   | 'window';
 
+// Compile-time check only: fails to type-check if Icon stops covering KeyLabelIcon. It is never read, so the unused-vars rule is silenced on purpose.
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const _assertIconType: [KeyLabelIcon] extends [Icon] ? true : false = true;

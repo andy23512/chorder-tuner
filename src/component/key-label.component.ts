@@ -8,6 +8,8 @@ import {
 } from 'tangent-cc-lib';
 
 @Component({
+  // Attribute selector on purpose: it is applied to an SVG <g>, and a custom element would not render inside <svg>.
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[appKeyLabel]',
   imports: [MatTooltipModule, NgClass],
   templateUrl: './key-label.component.html',

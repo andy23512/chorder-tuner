@@ -8,6 +8,13 @@ import {
 import { deviceLayoutStore } from '../store/device-layout.store';
 import { Serial } from './serial';
 
+/** The parts of a history entry in a Device Manager backup file that this loader reads. */
+interface DeviceManagerHistoryItem {
+  type: string;
+  device: string;
+  layout: DeviceLayout['layout'];
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -33,7 +40,7 @@ export class LayoutLoader {
     let layoutItem = null;
     if (data.history) {
       layoutItem = data.history[0].find(
-        (item: any) =>
+        (item: DeviceManagerHistoryItem) =>
           item.type === 'layout' &&
           ['One', 'ONE', 'TWO', 'M4G'].includes(item.device),
       );

@@ -79,7 +79,7 @@ export class Layout {
     return columnIndex * (cellSize + gap) + cellSize / 2;
   }
 
-  switchCenter(sw: keyof FingerMap<any>, side: keyof HandMap<any>) {
+  switchCenter(sw: keyof FingerMap<unknown>, side: keyof HandMap<unknown>) {
     let position: { x: number; y: number };
     switch (sw) {
       case 'little':

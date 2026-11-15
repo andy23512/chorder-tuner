@@ -13,6 +13,8 @@ const R1 = 65;
 const R2 = 175;
 
 @Component({
+  // Attribute selector on purpose: it is applied to an SVG <g>, and a custom element would not render inside <svg>.
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[appSwitchSector]',
   imports: [KeyLabelComponent],
   templateUrl: './switch-sector.html',

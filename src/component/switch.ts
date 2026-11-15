@@ -13,6 +13,8 @@ import { KeyLabelComponent } from './key-label.component';
 import { SwitchSector } from './switch-sector';
 
 @Component({
+  // Attribute selector on purpose: it is applied to an SVG <g>, and a custom element would not render inside <svg>.
+  // eslint-disable-next-line @angular-eslint/component-selector
   selector: '[appSwitch]',
   imports: [SwitchSector, KeyLabelComponent],
   templateUrl: './switch.html',
